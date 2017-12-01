@@ -1,7 +1,7 @@
 
 export default {
     imagesTransformer: function (images) {
-        let res = []
+        let res = [];
         let imagesData = images.data;
         for (let i = 0, l = imagesData.length; i < l; i++) {
             res[i] = {

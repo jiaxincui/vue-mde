@@ -46,7 +46,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-12" >
                                 <ul class="pagination">
                                     <li>
                                         <strong>{{imageData.meta.from}}</strong>&nbsp;-&nbsp;<strong>{{imageData.meta.to}}</strong>&nbsp;

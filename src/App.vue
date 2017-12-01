@@ -2,7 +2,6 @@
   <div id="app" class="container">
     <vue-mde :options="options"/>
   </div>
-
 </template>
 
 <script>
