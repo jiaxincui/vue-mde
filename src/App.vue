@@ -1,7 +1,6 @@
 <template>
   <div id="app" class="container">
     <vue-mde v-model="content" :options="options"/>
-    <p>{{content.markdown}}</p>
   </div>
 </template>
 

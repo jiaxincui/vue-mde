@@ -16,6 +16,7 @@
             <textarea v-model="markdown" ref="textArea"></textarea>
         </div>
         <div class="mde-preview" :class="{hidden: writeStatus}" v-html="html" ref="mdePreview"></div>
+        <p class="mde-count text-right" :class="{hidden: ! writeStatus}"><small>Lines: {{totalLine}}</small>&nbsp;&nbsp;<small> words: {{totalChar}}</small></p>
         <insert-link ref="insertLink" :link-text="linkText" :link-url="linkUrl" :locales="activeOptions.locales" @insert-link="insertLink"></insert-link>
         <div class="modal fade" tabindex="-1" role="dialog" ref="dropzoneModal">
             <div class="modal-dialog" role="document">
@@ -122,8 +123,6 @@
 
         data() {
             return {
-                imageData: {meta:{}},
-                checkedImages: [],
                 mt: Object,
                 cm: Object,
                 http: axios,
@@ -138,7 +137,11 @@
                 toolbars: [[]],
                 writeStatus: true,
                 linkText: '',
-                linkUrl: 'http://'
+                linkUrl: 'http://',
+                totalLine: 1,
+                totalChar: 0,
+                imageData: {meta:{}},
+                checkedImages: [],
             }
         },
 
@@ -148,6 +151,7 @@
             this.activeOptions.markdownIt = Object.assign({}, DefaultOptions.markdownIt, this.options.markdown);
             this.activeOptions.locales = Object.assign({}, DefaultOptions.locales, this.options.locales);
             this.activeOptions.dropzone = Object.assign({}, DefaultOptions.dropzone, this.options.dropzone);
+            this.activeOptions.codeMirror.value = this.markdown
             let build = [[]];
             if (this.options.toolbars && this.options.toolbars.length) {
                 let buildIdx = 0;
@@ -202,9 +206,12 @@
                     clickable: [this.$refs.dropzone, this.$refs.addFile],
                 }));
 
-                this.cm.on('blur', () => {
+                this.cm.on('change', () => {
                     this.markdown = this.cm.getValue();
-                    this.html = this.mt.render(this.markdown)
+                    this.html = this.mt.render(this.markdown);
+                    this.totalLine = this.cm.doc.lineCount();
+                    let blank = this.markdown.match(/\s/g);
+                    this.totalChar = this.markdown.length - (!blank ? 0 : blank.length);
                     this.$emit('change', {markdown: this.markdown, html: this.html})
                 });
 
@@ -316,8 +323,6 @@
 
                 switch (name) {
                     case 'preview':
-                        this.markdown = this.cm.getValue();
-                        this.html = this.mt.render(this.markdown);
                         this.writeStatus = ! this.writeStatus;
                         break;
                     case 'header':
