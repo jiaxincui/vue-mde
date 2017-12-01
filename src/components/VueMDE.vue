@@ -107,7 +107,15 @@
         },
 
         props: {
-            content: Object,
+            content: {
+                type: Object,
+                default() {
+                    return {
+                        markdown: '',
+                        html: ''
+                    }
+                }
+            },
             options: {
                 type: Object,
                 default() {
@@ -323,6 +331,8 @@
 
                 switch (name) {
                     case 'preview':
+                        this.markdown = this.cm.getValue();
+                        this.html = this.mt.render(this.markdown);
                         this.writeStatus = ! this.writeStatus;
                         break;
                     case 'header':
