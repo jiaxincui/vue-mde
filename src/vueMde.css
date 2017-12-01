@@ -8,6 +8,7 @@
 }
 
 .CodeMirror {
+    height: 500px;
     font-family: sans-serif;
     border: thin solid lightgray;
     -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;

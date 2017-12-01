@@ -100,7 +100,13 @@
     export default {
         name: 'vue-mde',
 
+        model: {
+            prop: 'content',
+            event: 'change'
+        },
+
         props: {
+            content: Object,
             options: {
                 type: Object,
                 default() {
@@ -180,6 +186,8 @@
                 }
             }
             this.toolbars = build
+
+            this.markdown = this.content.markdown;
         },
 
         mounted() {
@@ -197,6 +205,7 @@
                 this.cm.on('blur', () => {
                     this.markdown = this.cm.getValue();
                     this.html = this.mt.render(this.markdown)
+                    this.$emit('change', {markdown: this.markdown, html: this.html})
                 });
 
                 this.cm.on('drop', (cm, event) => {

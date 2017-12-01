@@ -1,6 +1,7 @@
 <template>
   <div id="app" class="container">
-    <vue-mde :options="options"/>
+    <vue-mde v-model="content" :options="options"/>
+    <p>{{content.markdown}}</p>
   </div>
 </template>
 
@@ -14,6 +15,7 @@ export default {
   },
     data() {
       return {
+          content: {markdown: 'this.id'},
           options: {
               toolbars: [],
               dropzone: {

@@ -6,7 +6,7 @@
 
 ``` bash
 # install dependencies
-npm install vue-mde --save
+npm install vue-mde --dev
 
 ```
 
