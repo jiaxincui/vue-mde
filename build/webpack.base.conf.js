@@ -37,7 +37,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        loader: 'babel-loader',
+        loader: 'babel-loader?babelrc=false',
         include: [resolve('src'), resolve('test')]
       },
       {

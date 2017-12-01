@@ -1,6 +1,6 @@
 {
   "name": "vue-mde",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "license": "MIT",
   "description": "A markdown editor component for vue.js",
   "keywords": [
