@@ -1,14 +1,19 @@
 {
   "name": "vue-mde",
   "version": "1.0.0",
+  "license": "MIT",
   "description": "A markdown editor component for vue.js",
-  "author": "JiaxinCui",
-  "private": true,
+  "author": "jiaxincui <jenkincei@hotmail.com>",
+  "main": "src/index.js",
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
 
     "build": "node build/build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jiaxincui/vue-mde.git"
   },
   "dependencies": {
     "axios": "^0.17.1",
