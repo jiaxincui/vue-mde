@@ -3,6 +3,12 @@
   "version": "1.0.0",
   "license": "MIT",
   "description": "A markdown editor component for vue.js",
+  "keywords": [
+    "markdown",
+    "editor",
+    "mde",
+    "Vue.js"
+  ],
   "author": "jiaxincui <jenkincei@hotmail.com>",
   "main": "src/index.js",
   "scripts": {

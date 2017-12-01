@@ -10,4 +10,6 @@ npm install vue-mde --save
 
 ```
 
+## Features
+
 开发中...
