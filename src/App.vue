@@ -1,28 +1,31 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <HelloWorld/>
+  <div id="app" class="container">
+    <vue-mde :options="options"/>
   </div>
+
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
+import VueMDE from './components/VueMDE.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
-  }
+      'vue-mde': VueMDE
+  },
+    data() {
+      return {
+          options: {
+              toolbars: [],
+              dropzone: {
+                  url: '/',
+                  headers: {
+                      Authorization: `Bearer ${localStorage.token}`,
+                      Accept: 'application/json',
+                  },
+              }
+          }
+      }
+    }
 }
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
