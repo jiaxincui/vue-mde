@@ -120,6 +120,7 @@
                 checkedImages: [],
                 mt: Object,
                 cm: Object,
+                http: axios,
                 markdown: '',
                 html: '',
                 activeOptions: {
@@ -137,10 +138,10 @@
 
         created() {
             this.activeOptions = Object.assign({}, DefaultOptions, this.options);
-            this.activeOptions.codeMirror = Object.assign(DefaultOptions.codeMirror, this.options.codeMirror);
-            this.activeOptions.markdownIt = Object.assign(DefaultOptions.markdownIt, this.options.markdown);
-            this.activeOptions.locales = Object.assign(DefaultOptions.locales, this.options.locales);
-            this.activeOptions.dropzone = Object.assign(DefaultOptions.dropzone, this.options.dropzone);
+            this.activeOptions.codeMirror = Object.assign({}, DefaultOptions.codeMirror, this.options.codeMirror);
+            this.activeOptions.markdownIt = Object.assign({}, DefaultOptions.markdownIt, this.options.markdown);
+            this.activeOptions.locales = Object.assign({}, DefaultOptions.locales, this.options.locales);
+            this.activeOptions.dropzone = Object.assign{}, (DefaultOptions.dropzone, this.options.dropzone);
             let build = [[]];
             if (this.options.toolbars && this.options.toolbars.length) {
                 let buildIdx = 0;
@@ -281,7 +282,7 @@
                 if (! page) {
                     page = 1
                 }
-                axios.get(this.activeOptions.dropzone.url + '?page=' + page, {
+                this.http.get(this.activeOptions.dropzone.url + '?page=' + page, {
                     headers: this.activeOptions.dropzone.headers,
                 }).then(res => {
                     this.imageData = this.activeOptions.imagesTransformer(res.data);
