@@ -40,7 +40,7 @@
                         <div class="row">
                             <div class="col-md-3" v-for="item in imageData.data"  @click="toggleImageChecked(item)">
                                 <div class="img-item" >
-                                    <img class="img-thumbnail" :src="activeOptions.dropzone.url + '/' + item.id + '/thumbnail'" :alt="item.display_name">
+                                    <img class="img-thumbnail" :src="activeOptions.dropzone.url + item.thumbnail" :alt="item.title">
                                     <div class="img-checked" :class="{hidden: checkedImages.indexOf(item) < 0}">
                                         <span class="fa fa-check fa-3x"></span>
                                     </div>
@@ -120,7 +120,7 @@
                 checkedImages: [],
                 mt: Object,
                 cm: Object,
-                markdown: '这里是一段文本,\n这里还有一段文本里还有一段文本里还有一段文本里还有一段文本里还有一段文本，\n摘地方',
+                markdown: '',
                 html: '',
                 activeOptions: {
                     dropzone: {
@@ -136,6 +136,7 @@
         },
 
         created() {
+            this.activeOptions = Object.assign({}, DefaultOptions, this.options);
             this.activeOptions.codeMirror = Object.assign(DefaultOptions.codeMirror, this.options.codeMirror);
             this.activeOptions.markdownIt = Object.assign(DefaultOptions.markdownIt, this.options.markdown);
             this.activeOptions.locales = Object.assign(DefaultOptions.locales, this.options.locales);
@@ -224,7 +225,7 @@
                 });
 
                 this.dz.on("addedfile", (file) => {
-                    if (!file.type.match('/image.*/')) {
+                    if (! file.type.match('/image.*/')) {
                         this.dz.emit("thumbnail", file, thumbnail);
                     }
                     file.previewElement.querySelector(".dz-item-cancel").onclick = () => { this.dz.removeFile(file)}
@@ -268,7 +269,7 @@
             insertImage() {
                 let imagesMarkup = '';
                 for (let i = 0, len = this.checkedImages.length; i < len; i++) {
-                    imagesMarkup += `![${this.checkedImages[i].display_name}](${this.activeOptions.dropzone.url}/${this.checkedImages[i].id}) `
+                    imagesMarkup += `![${this.checkedImages[i].title}](${this.activeOptions.dropzone.url}${this.checkedImages[i].uri}) `
                 }
                 this.cm.replaceSelection(imagesMarkup, 'around');
                 this.$nextTick(function() {
@@ -283,7 +284,7 @@
                 axios.get(this.activeOptions.dropzone.url + '?page=' + page, {
                     headers: this.activeOptions.dropzone.headers,
                 }).then(res => {
-                    this.imageData = res.data;
+                    this.imageData = this.activeOptions.imagesTransformer(res.data);
                     this.checkedImages = []
                 })
             },
@@ -305,6 +306,8 @@
 
                 switch (name) {
                     case 'preview':
+                        this.markdown = this.cm.getValue();
+                        this.html = this.mt.render(this.markdown);
                         this.writeStatus = ! this.writeStatus;
                         break;
                     case 'header':

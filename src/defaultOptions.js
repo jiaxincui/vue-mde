@@ -1,5 +1,18 @@
 
 export default {
+    imagesTransformer: function (images) {
+        let res = []
+        let imagesData = images.data;
+        for (let i = 0, l = imagesData.length; i < l; i++) {
+            res[i] = {
+                id: imagesData[i].id,
+                title: imagesData[i].display_name,
+                uri: `/${imagesData[i].id}`,
+                thumbnail: `/${imagesData[i].id}/thumbnail`
+            }
+        }
+        return {data: res, meta: images.meta}
+    },
     toolbars: [
         'header',
         'bold',
@@ -27,7 +40,7 @@ export default {
         mode: "markdown",
         theme: '3024-day',
         lineWrapping: true,
-        autofocus: true,
+        autofocus: true
     },
 
     markdownIt: {
@@ -50,7 +63,7 @@ export default {
         apply: 'Apply',
         addFile: 'Add file',
         uploadAll: 'Upload all',
-        removeAll: 'Remove all',
+        removeAll: 'Remove all'
 
     },
 
@@ -83,6 +96,6 @@ export default {
                     </div>
                 </div>
             </div>
-        `,
+        `
     }
 }

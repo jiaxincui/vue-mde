@@ -20,7 +20,7 @@ export default {
               dropzone: {
                   url: '/',
                   headers: {
-                      Authorization: `Bearer ${localStorage.token}`,
+                      Authorization: `Bearer ${sessionStorage.token}`,
                       Accept: 'application/json',
                   },
               }
