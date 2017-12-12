@@ -197,7 +197,7 @@
                     }
                 }
             }
-            this.toolbars = build
+            this.toolbars = build;
 
             this.markdown = this.content.markdown;
         },
@@ -326,6 +326,7 @@
             toggleTab(name) {
                 this.tabStatus = name
             },
+
             toolbarAction(name) {
                 if (! this.writeStatus && name !== 'preview') return
 
