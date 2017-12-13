@@ -90,7 +90,6 @@ export default {
                     <button class="btn btn-default btn-sm item-start"><span class="fa fa-upload"></span></button>
                     <button class="btn btn-default btn-sm item-cancel"><span class="fa fa-remove"></span></button>
                 </div>
-               
             </div>
         `
     }

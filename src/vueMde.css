@@ -53,10 +53,9 @@
 }
 
 .mde-container .dz-container .dz-item {
-    overflow: hidden;
     display: inline-block;
     position: relative;
-    margin: 10px 5px 0 5px;
+    margin: 5px;
 }
 
 .mde-container .dz-container .dz-item .item-progress {
@@ -67,7 +66,7 @@
     height: 100%;
     margin: 0;
     padding: 0;
-    background-color: rgba(255, 255, 255, .4);
+    background-color: rgba(0, 0, 0, .3);
     transition: width 1s;
     -moz-transition: width 1s;
     -webkit-transition: width 1s;
@@ -90,7 +89,10 @@
 .mde-container .dz-container .dz-item .item-btn {
     display: none;
     position: absolute;
+    left: 0;
     bottom: 10px;
+    margin: 0;
+    padding: 0;
     width: 100%;
     text-align: center
 }
