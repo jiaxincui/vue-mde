@@ -257,6 +257,7 @@
                 });
 
                 this.dz.on("success", (file) => {
+                    file.previewElement.querySelector('.item-progress').style.width = '100%';
                     file.previewElement.querySelector('.item-start').style.display = 'none';
                     let fileDom = file.previewElement.querySelector('.item-progress span');
                     fileDom.classList.add('fa-check-circle');
@@ -270,6 +271,7 @@
                 });
 
                 this.dz.on("error", (file, message, xhr) => {
+                    file.previewElement.querySelector('.item-progress').style.width = '100%';
                     file.previewElement.querySelector('.item-start').style.display = 'none';
                     file.previewElement.querySelector('.img-thumbnail').style.borderColor = '#d9534f';
                     let fileDom = file.previewElement.querySelector('.item-progress span');
