@@ -11,12 +11,11 @@
                 </button>
             </div>
         </div>
-        <div class="mde-line"></div>
         <div class="mde-write" :class="{hidden: ! writeStatus}" ref="mdeWrite">
             <textarea v-model="markdown" ref="textArea"></textarea>
         </div>
         <div class="mde-preview" :class="{hidden: writeStatus}" v-html="html" ref="mdePreview"></div>
-        <p class="mde-count text-right" :class="{hidden: ! writeStatus}"><small>Lines: {{totalLine}}</small>&nbsp;&nbsp;<small> words: {{totalChar}}</small></p>
+        <p class="text-right" :class="{hidden: ! writeStatus}"><small>Lines: {{totalLine}}</small>&nbsp;&nbsp;<small> words: {{totalChar}}</small></p>
         <insert-link ref="insertLink" :link-text="linkText" :link-url="linkUrl" :locales="activeOptions.locales" @insert-link="insertLink"></insert-link>
         <div class="modal fade" tabindex="-1" role="dialog" ref="dropzoneModal">
             <div class="modal-dialog" role="document">
@@ -40,7 +39,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-3" v-for="item in imageData.data"  @click="toggleImageChecked(item)">
-                                <div class="img-item" >
+                                <div class="dz-img-item">
                                     <img class="img-thumbnail" :src="activeOptions.dropzone.url + item.thumbnail" :alt="item.title">
                                     <div class="img-checked" :class="{hidden: checkedImages.indexOf(item) < 0}">
                                         <span class="fa fa-check fa-3x"></span>
@@ -253,30 +252,35 @@
                     if (! file.type.match('/image.*/')) {
                         this.dz.emit("thumbnail", file, thumbnail);
                     }
-                    file.previewElement.querySelector(".dz-item-cancel").onclick = () => { this.dz.removeFile(file)}
-                    file.previewElement.querySelector(".dz-item-start").onclick = () => { this.dz.enqueueFile(file) }
+                    file.previewElement.querySelector(".item-cancel").onclick = () => { this.dz.removeFile(file)}
+                    file.previewElement.querySelector(".item-start").onclick = () => { this.dz.enqueueFile(file) }
                 });
 
                 this.dz.on("success", (file) => {
+                    file.previewElement.querySelector('.item-start').style.display = 'none';
+                    let fileDom = file.previewElement.querySelector('.item-progress span');
+                    fileDom.classList.add('fa-check-circle');
+                    fileDom.style.opacity = 100;
                     let t;
                     clearTimeout(t);
                     t = setTimeout(() => {
                         this.dz.removeFile(file);
-                    }, 2000);
+                    }, 3000);
                     this.fetchImages();
                 });
 
                 this.dz.on("error", (file, message, xhr) => {
-                    file.previewElement.querySelector('.dz-item-cover').style.display = 'block';
-                    file.previewElement.querySelector('.dz-progress').style.width = 0
-                    let dom = file.previewElement.querySelector(".dz-error")
-                    dom.innerHTML = `error: ${xhr.status}`;
-                    dom.classList.remove('hidden');
+                    file.previewElement.querySelector('.item-start').style.display = 'none';
+                    file.previewElement.querySelector('.img-thumbnail').style.borderColor = '#d9534f';
+                    let fileDom = file.previewElement.querySelector('.item-progress span');
+                    fileDom.classList.add('fa-exclamation-circle');
+                    fileDom.style.opacity = 100;
                 });
 
                 this.$refs.uploadAll.onclick = () => {
                     this.dz.enqueueFiles(this.dz.getFilesWithStatus(Dropzone.ADDED));
                 };
+
                 this.$refs.removeAll.onclick = () => {
                     this.dz.removeAllFiles(true);
                 };

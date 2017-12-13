@@ -83,18 +83,14 @@ export default {
         previewTemplate: `
             <div class="dz-item">
                 <img class="img-thumbnail" data-dz-thumbnail>
-                <p class="dz-progress" data-dz-uploadprogress></p>
-                <div class="dz-item-cover">
-                    <div class="dz-error hidden"></div>
-                    <div class="dz-item-btn">
-                        <button class="btn btn-default btn-sm dz-item-start">
-                           <span class="fa fa-upload"></span>
-                        </button>
-                        <button class="btn btn-default btn-sm dz-item-cancel">
-                            <span class="fa fa-remove"></span>
-                        </button>
-                    </div>
+                <div class="item-progress" data-dz-uploadprogress>
+                    <span class="fa fa-3x"></span>
                 </div>
+                <div class="item-btn">
+                    <button class="btn btn-default btn-sm item-start"><span class="fa fa-upload"></span></button>
+                    <button class="btn btn-default btn-sm item-cancel"><span class="fa fa-remove"></span></button>
+                </div>
+               
             </div>
         `
     }

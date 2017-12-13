@@ -18,7 +18,7 @@ export default {
           options: {
               toolbars: [],
               dropzone: {
-                  url: '/',
+                  url: 'http://cms.dev/api/backend/attachments',
                   headers: {
                       Authorization: `Bearer ${sessionStorage.token}`,
                       Accept: 'application/json',
